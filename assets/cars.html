@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>challeng4</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/styles.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-/2A6IWNILwjs1aihbuLZZo0fI7SuVnKpIaGZz/ERWI2fFvlB2f/r5arYvX7eYK+VbCKXFiw1+zxY9KikTlT4gQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous" />
+</head>
+<body>
+    <header class="container-fluid "> 
+        <nav class="navbar navbar-expand-lg navbar-light shadow-header fixed-top">
+            <div class="container-lg">
+                <a class="navbar-brand" href="#">    
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#ourservice">Our Service</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#whyus">Why Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#testimonial">Testimonial</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#faq">FAQ</a>
+                        </li>
+                        <li class="nav-item">
+                            <button class="btn btn-register mt-1 ml-1 fw-bold fs-8">Register</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main container-fluid pt-5 3px">
+        <div class="main-table container-lg d-flex row m-auto p-0">
+                <div class="main-left col-md-5 d-flex flex-column align-items-center">
+                        <h1 class="fw-bold">Sewa & Rental Mobil Terbaik Di Kawasan Depok</h1>
+                        <p class="font-weight-light">Selamat datang di Binar Car Rental. Kami menyediakan mobil kualitas terbaik dengan harga terjangkau. Selalu siap melayani kebutuhanmu untuk sewa mobil selama 24 jam.</p>
+                        <button type="button" class="btn btn-sewa mt-3">Mulai Sewa Mobil</button>
+                </div>
+                <div class="main-right col-md-5">    
+                    <img src="./images/img_car.png" alt="Gambar Mobil" class="img-car img-fluid position-absolute">
+                </div>
+        </div>
+    </main>
+    <div class="container-fluid fc-container" id="searchCar">
+        <div class="card-filter">
+          <div class="card-filterb">
+            <div class="row ">
+              <div class="col-md-2">
+                <p class="pt-1">Tipe Driver</p>
+                <select id="driver" class="form-select">
+                  <option value="">Pilih Driver</option>
+                  <option value="dengan-supir">Dengan Supir</option>
+                  <option value="lepas-kunci">Tanpa Supir(Lepas kunci)</option>
+                </select>
+              </div>
+              <div class="col-md-2">
+                <p class="pt-1">Tanggal</p>
+                <input type="date" id="date" />
+              </div>
+              <div class="col-md-3">
+                <p class="pt-1">Waktu Jemput/Ambil</p>
+                <input type="time" id="time" />
+              </div>
+              <div class="col-md-3">
+                <p class="pt-1">Jumlah Penumpang</p>
+                <input type="number" id="qty" />
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-success my-auto" id="load-btn">
+                  Cari Mobil
+                </button>
+              </div>
+            </div>
+          </div>
+          <button type="button" id="close-btn" class="close-btn">
+            <span aria-hidden="true" >&times;</span>
+          </button>
+          
+        </div>
+    </div>
+    
+    <div class="row row-cols-auto justify-content-center" id="carsList">
+    </div>
+    
+    <div id="notifikasiMobilTidakTersedia" class="container-sm mt-0 w-25 mb-1rem text-center alert alert-danger">Mobil yang anda cari tidak tersedia</div>
+
+      
+<!-- footer -->
+        <footer class="footer" id="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="alamat col-md-3">
+                        <p>Jalan Suroyo No. 161 Mayangan Kota Probolonggo 672000</p>
+                        <p>binarcarrental@gmail.com</p>
+                        <p>081-233-334-808</p>
+                    </div>
+                    <div class="col-md-3">
+                        <p><a class="footer-text" href="#ourservice">Our Service</a></p>
+                        <p><a class="footer-text" href="whyus">Why Us</a></p>
+                        <p><a class="footer-text" href="#testimonial">Testimonial</a></p>
+                        <p><a class="footer-text" href="#faq">FAQ</a></p>
+                    </div>
+                    <div class="connect col-md-3">
+                        <p>Connect with us</p>
+                        <a href="https://www.facebook.com"><img src="./icons/icon_facebook.png" class="mx-" alt="Facebook"> </a>
+                        <a href="https://www.instagram.com"><img src="./icons/icon_instagram.png" class="mx-" alt="Instagram"></a>
+                        <a href="https://www.Twitter.com"><img src="./icons/icon_twitter.png" class="mx-" alt="Twitter"></a>
+                        <a href="https://www.gmail.com"><img src="./icons/icon_mail.png" class="mx-" alt="Mail"></a>
+                        <a href="https://www.twitch.com"><img src="./icons/icon_twitch.png" class="mx-" alt="Twitch"></a>
+                    </div>
+                    <div class="detail col-md-3">
+                        <p>&copy; 2024 Binar Car Rental</p>
+                        <a class="navbar-brand" href="#">
+                          <span class="logo d-block"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+<!-- Script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="./scripts/scripts.js"></script>  
+    <script type="text/javascript" src="./scripts/app.js"></script>
+    <script type="text/javascript" src="./scripts/binar.js"></script>
+    <script type="text/javascript" src="./scripts/car.js"></script>
+    <script type="text/javascript" src="./scripts/main.js"></script>
+</body>
+</html>
