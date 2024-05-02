@@ -24,32 +24,38 @@ class Binar {
     let cachedCarsString = localStorage.getItem("CARS");
 
     if (!!cachedCarsString) {
-      const cacheCars = JSON.parse(cachedCarsString);
-      cars = this.populateCars(cacheCars);
+        const cacheCars = JSON.parse(cachedCarsString);
+        cars = this.populateCars(cacheCars);
     } else {
-      const response = await fetch(
-        "https://raw.githubusercontent.com/fnurhidayat/probable-garbanzo/main/data/cars.min.json"
-      );
-      const body = await response.json();
-      cars = this.populateCars(body);
+        const response = await fetch(
+            "https://raw.githubusercontent.com/fnurhidayat/probable-garbanzo/main/data/cars.min.json"
+        );
+        const body = await response.json();
+        cars = this.populateCars(body);
 
-      localStorage.setItem("CARS", JSON.stringify(cars));
-      console.log("All Cars:", cars);
+        localStorage.setItem("CARS", JSON.stringify(cars));
+        console.log("All Cars:", cars);
     }
-    console.log("Input Filterer:", filterer);
- if (Object.values(filterer).some(value => value !== '')) {
-      cars = cars.filter((car) => {
-        const isAvailable = car.available;
-        const isPassengerValid = !filterer.passenger || car.capacity >= parseInt(filterer.passenger);
-        const isYearValid = !filterer.year || car.year >= parseInt(filterer.year);
-        console.log("Car:", car);
-        console.log("Available:", isAvailable);
-        console.log("Passenger Valid:", isPassengerValid);
-        console.log("Year Valid:", isYearValid);
-        return isAvailable && isPassengerValid && isYearValid;
+
+    if (Object.values(filterer).some(value => value !== '')) {
+        const filterDate = new Date(filterer.date); 
+        cars = cars.filter((car) => {
+          const isDriverValid = filterer.driver === "dengan-supir" ? car.available : true;
+          const availableAtDate = new Date(car.availableAt); 
+          const isAvailableAtValid = availableAtDate > new Date(filterer.date); 
+          const isPassengerValid = !filterer.passenger || car.capacity >= parseInt(filterer.passenger);
+      
+          console.log("Car:", car);
+          console.log("Driver Valid:", isDriverValid);
+          console.log("AvailableAt Valid:", isAvailableAtValid);
+          console.log("Passenger Valid:", isPassengerValid);
+          console.log("Filter Date:", filterer.date);
+      
+          return isDriverValid && isAvailableAtValid && isPassengerValid;
       });
     }
     console.log("Filtered Cars:", cars);
     return cars;
-  }
+}
+
 }

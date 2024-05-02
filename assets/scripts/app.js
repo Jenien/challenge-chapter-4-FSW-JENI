@@ -3,6 +3,7 @@ class App {
     this.btnSearchCars = document.getElementById("load-btn");
     this.carContainerElement = document.getElementById("carsList");
     this.alertElement = document.getElementById("notifikasiMobilTidakTersedia");
+    this.dateInputElement = document.getElementById("date"); // tambahkan reference ke input tanggal
   }
 
   async init() {
@@ -38,21 +39,25 @@ class App {
   async load() {
     const driver = document.getElementById("driver").value;
     const passenger = parseInt(document.getElementById("qty").value);
-    const date = document.getElementById("date").value;
-    const time = document.getElementById("time").value;
-    const dateTime = `${date} ${time}`;
-    const year = date.substring(0, 4);
-
-    const filterer = { driver: driver, passenger: passenger, year: year };
+    const date = this.formatDate(this.dateInputElement.value); 
+    const filterer = { driver: driver, passenger: passenger, date: date }; // tambahkan tanggal ke filterer
 
     const cars = await Binar.listCars(filterer);
-    Car.init(cars);
-  }
+    Car.init(cars.filter(car => {
+        if (driver === "dengan-supir") {
+            return car.available && new Date(date) < new Date(car.availableAt);
+        } else if (driver === "lepas-kunci") {
+            return new Date(date) < new Date(car.availableAt);
+        } else {
+            return false; 
+        }
+    }));
+}
 
   isFilterNotEmpty() {
     const driver = document.getElementById("driver").value;
     const passenger = parseInt(document.getElementById("qty").value);
-    const date = document.getElementById("date").value;
+    const date = this.dateInputElement.value; 
     const time = document.getElementById("time").value;
     return driver !== '' || !isNaN(passenger) || date !== '' || time !== '';
   }
@@ -69,5 +74,14 @@ class App {
 
   hideAlert() {
     this.alertElement.setAttribute("hidden", true); 
+  }
+
+  formatDate(dateString) {
+    // Ubah format tanggal ke YYYY-MM-DD
+    const dateObject = new Date(dateString);
+    const year = dateObject.getFullYear();
+    const month = (dateObject.getMonth() + 1).toString().padStart(2, '0');
+    const day = dateObject.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
 }
