@@ -27,9 +27,7 @@ class Binar {
         const cacheCars = JSON.parse(cachedCarsString);
         cars = this.populateCars(cacheCars);
     } else {
-        const response = await fetch(
-            "https://raw.githubusercontent.com/fnurhidayat/probable-garbanzo/main/data/cars.min.json"
-        );
+      const response = await fetch('http://localhost:' + port + '/cars');
         const body = await response.json();
         cars = this.populateCars(body);
 
@@ -38,22 +36,23 @@ class Binar {
     }
 
     if (Object.values(filterer).some(value => value !== '')) {
-        const filterDate = new Date(filterer.date); 
-        cars = cars.filter((car) => {
+      const filterDate = new Date(filterer.date);
+      cars = cars.filter((car) => {
           const isDriverValid = filterer.driver === "dengan-supir" ? car.available : true;
-          const availableAtDate = new Date(car.availableAt); 
-          const isAvailableAtValid = availableAtDate > new Date(filterer.date); 
+          const availableAtDate = car.availableAt; // Menggunakan tanggal ketersediaan langsung dari cars.json
+          const isAvailableAtValid = new Date(availableAtDate) > filterDate; // Gunakan tanggal filter yang diterima
           const isPassengerValid = !filterer.passenger || car.capacity >= parseInt(filterer.passenger);
-      
+  
           console.log("Car:", car);
           console.log("Driver Valid:", isDriverValid);
           console.log("AvailableAt Valid:", isAvailableAtValid);
           console.log("Passenger Valid:", isPassengerValid);
           console.log("Filter Date:", filterer.date);
-      
+  
           return isDriverValid && isAvailableAtValid && isPassengerValid;
       });
-    }
+  }
+  
     console.log("Filtered Cars:", cars);
     return cars;
 }

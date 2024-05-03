@@ -11,7 +11,21 @@ http.createServer((req, res) => {
       case '/cars.html':
         req.url = 'cars.html';
         break;
-    }
+        case '/cars':
+      fs.readFile('./data/cars.json', 'utf8' , (err, data) => {
+        if (err) {
+          res.writeHead(500);
+          res.end('Error reading cars data');
+          return;
+        }
+        // const cars = JSON.parse(data);
+        res.writeHead(200, {'Content-Type': 'application/json'});
+        res.end(data);
+        return;
+      });
+      break;
+  }
+
   let path = 'assets/' + req.url;
   fs.readFile(path, (err, data) => {
     if (err) {
@@ -22,6 +36,8 @@ http.createServer((req, res) => {
     res.writeHead(200);
     res.end(data);
   });
-}).listen(port, () => {
-  console.log(`Server is running, please open http://localhost:${port}`);
+})
+
+.listen(port, () => {
+  console.log(`Cek http://localhost:${port}`);
 });
