@@ -39,8 +39,8 @@ class Binar {
       const filterDate = new Date(filterer.date);
       cars = cars.filter((car) => {
           const isDriverValid = filterer.driver === "dengan-supir" ? car.available : true;
-          const availableAtDate = car.availableAt; // Menggunakan tanggal ketersediaan langsung dari cars.json
-          const isAvailableAtValid = new Date(availableAtDate) > filterDate; // Gunakan tanggal filter yang diterima
+          const availableAtDate = car.availableAt; 
+          const isAvailableAtValid = new Date(availableAtDate) > filterDate; 
           const isPassengerValid = !filterer.passenger || car.capacity >= parseInt(filterer.passenger);
   
           console.log("Car:", car);

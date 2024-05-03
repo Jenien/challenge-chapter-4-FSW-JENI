@@ -40,7 +40,7 @@ class App {
     const driver = document.getElementById("driver").value;
     const passenger = parseInt(document.getElementById("qty").value);
     const date = this.formatDate(this.dateInputElement.value); 
-    const filterer = { driver: driver, passenger: passenger, date: date }; // tambahkan tanggal ke filterer
+    const filterer = { driver: driver, passenger: passenger, date: date }; 
 
     const cars = await Binar.listCars(filterer);
     Car.init(cars.filter(car => {
